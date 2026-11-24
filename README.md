@@ -11,19 +11,26 @@ CloneTTS is an offline, native Text-to-Speech (TTS) engine for Android devices. 
 ### Key Features
 
 - **Offline Voice Cloning**: Record 1~3 seconds of speech to create a custom voice
+- **PC Server & OpenAI-Compatible TTS** *(New in 0.8.0)*: Connect over LAN to our open-source companion PC servers — **[IndexTTS-Server](https://github.com/sipeter/IndexTTS-Server)** (pure C++ ONNX Runtime IndexTTS 1.5 with Windows desktop console) or **[AudioCpp-Desktop](https://github.com/sipeter/AudioCpp-Desktop)** (Windows desktop console for `audio.cpp`, running IndexTTS 2.5, CosyVoice 3, VoxCPM 2, Qwen3-TTS, M5-TTS) — or any OpenAI-compatible `/v1/audio/speech` backend, unlocking Japanese, Korean, and European languages with automatic fallback to local offline voices when away from Wi-Fi
 - **NPU Hardware Acceleration** *(New in 0.7.0)*: On supported Qualcomm Snapdragon flagship devices (8 Gen 2 / 8 Gen 3 / 8 Elite / 8 Elite Gen 5), offload synthesis to the on-device NPU for ~2× speed and significantly lower heat
 - **Enhanced Sentence Splitting** *(New in 0.7.0)*: Punctuation-graded pauses, dialogue quotes no longer split apart, mixed Chinese-English long phrases no longer chopped — benefits all devices
 - **System TTS**: Registers as an Android system TTS engine, compatible with Legado, Moon+ Reader, etc.
 - **HTTP API Server**: Built-in local HTTP server supporting GET and POST requests
 - **Speed & Volume Control**: 0.5x–2.0x speech rate, 0%–200% volume
 - **Pronunciation Correction**: Add powerful custom plain text or regex-based substitution rules
-- **Voice Backup**：ZIP-based export/import with append or overwrite modes
+- **Voice Backup**: ZIP-based export/import with append or overwrite modes
 
-### 📢 Join the Google Play Closed Beta
-To preview our upcoming release featuring neural noise reduction and built-in device benchmarking, please enroll in our official beta testing track:
-1. **Join the testing group** (Required to obtain beta access): [Google Groups Link](https://groups.google.com/g/clonetts)
-2. **Accept testing invitation**: [Testing Opt-in](https://play.google.com/apps/testing/com.sipeter.clonetts)
-3. **Download or update**: [View on Google Play](https://play.google.com/store/apps/details?id=com.sipeter.clonetts)
+### 📲 Download
+- **Google Play**: [Get CloneTTS on Google Play](https://play.google.com/store/apps/details?id=com.sipeter.clonetts)
+- **GitHub Releases (Android APK)**: Download the latest `.apk` (64-bit Android 7.0+) from the [Releases](https://github.com/sipeter/CloneTTS/releases) page.
+- **Companion Open-Source PC Servers (Windows)**:
+  - **[IndexTTS-Server](https://github.com/sipeter/IndexTTS-Server)** ([Releases](https://github.com/sipeter/IndexTTS-Server/releases)) — Pure C++ ONNX Runtime IndexTTS 1.5 server & desktop console (one-click model download, no reference transcript required).
+  - **[AudioCpp-Desktop](https://github.com/sipeter/AudioCpp-Desktop)** ([Releases](https://github.com/sipeter/AudioCpp-Desktop/releases)) — Native Windows desktop console for `audio.cpp` (IndexTTS 2.5, CosyVoice 3, VoxCPM 2, Qwen3-TTS, M5-TTS, built-in ASR).
+- **Guides (`docs/`)**:
+  - [Beginner's Guide & FAQ](docs/CloneTTS%20Beginner's%20Guide%20%26%20FAQ.md)
+  - [Reference Audio Guide](docs/CloneTTS%20Reference%20Audio%20Guide.md)
+  - [PC & OpenAI-Compatible TTS Server Setup Guide (English)](docs/PC_and_OpenAI_Server_Setup_Guide_EN.md)
+  - [PC 端与第三方 OpenAI 服务端接入指南（中文）](docs/PC端与第三方OpenAI服务端接入指南.md)
 
 ### 1. Mandatory Setup: Battery Optimization & Background Execution
 > **CRITICAL! MUST DO!**  
@@ -85,7 +92,7 @@ For reader integration in v0.6.0 and later:
 - **Telegram Group**: [CloneTTS](https://t.me/CloneTTS)
 
 ### 8. Disclaimer
-All speech synthesis and voiceprint extraction in this software operate strictly offline on your local device. No data is transmitted to any server. **Unauthorized extraction or use of another person's voice is strictly prohibited.** The end user bears full responsibility for any disputes arising from misuse.
+All local on-device speech synthesis and voiceprint extraction operate strictly offline on your device. When you optionally configure a remote PC or third-party OpenAI-compatible TTS server, synthesis text is sent only to the server address you specify. **Unauthorized extraction or use of another person's voice is strictly prohibited.** The end user bears full responsibility for any disputes arising from misuse.
 
 ### 9. Core Technology & Third-Party Acknowledgements
 This project is made possible by the following open-source projects. We sincerely thank their authors and communities:
@@ -105,6 +112,7 @@ CloneTTS 是一款运行在安卓系统本地的文字转语音 (TTS) 原生引�
 ### 功能特色
 
 - **离线音色克隆**：录制 1~3 秒人声即可生成专属音色
+- **PC 服务端与通用 OpenAI TTS 接入** *（0.8.0 新增）*：支持局域网直连两套独立开源的配套 PC 服务端——**[IndexTTS-Server](https://github.com/sipeter/IndexTTS-Server)**（纯 C++ ONNX Runtime IndexTTS 1.5 与 Windows 桌面控制台）或 **[AudioCpp-Desktop](https://github.com/sipeter/AudioCpp-Desktop)**（`audio.cpp` 桌面控制台，支持 IndexTTS 2.5 / CosyVoice 3 / VoxCPM 2 / Qwen3-TTS / M5-TTS），以及任意兼容 OpenAI `/v1/audio/speech` 协议的本地或云端服务（同时支持日/韩/欧等多语种），离开局域网自动回退本地离线音色
 - **NPU 硬件加速** *（0.7.0 新增）*：在受支持的高通骁龙旗舰机型（8 Gen 2 / 8 Gen 3 / 8 至尊版 / 8 至尊版 Gen 5）上，将合成运算卸载到端侧 NPU，速度约 2 倍、发热显著降低
 - **分句自然度升级** *（0.7.0 新增）*：按标点分级停顿、对话引语不再被拆散、中英混排长句不再被切碎——所有机型均受益
 - **系统级 TTS**：注册为安卓系统 TTS 引擎，兼容开源阅读、Moon+ 等阅读器
@@ -113,11 +121,17 @@ CloneTTS 是一款运行在安卓系统本地的文字转语音 (TTS) 原生引�
 - **发音纠错**：支持添加自定义的纯文本或强大的正则表达式替换规则
 - **音色备份**：ZIP 格式导入/导出，支持追加或覆盖导入
 
-### 📢 参与 Google Play 封闭内测 (Beta Testing)
-如果您希望提前体验具备神经网络降噪与设备性能基准测试的测试版本，欢迎加入官方内测通道（设备须支持 Google Play 服务）：
-1. **加入测试组**（必需，用于获取测试权限）：[Google Groups 链接](https://groups.google.com/g/clonetts)
-2. **接受内测邀请**：[同意成为测试员](https://play.google.com/apps/testing/com.sipeter.clonetts)
-3. **下载或更新应用**：[前往 Google Play 商店](https://play.google.com/store/apps/details?id=com.sipeter.clonetts)
+### 📲 下载安装与文档指南
+- **Google Play 商店**：[前往 Google Play 下载正式版](https://play.google.com/store/apps/details?id=com.sipeter.clonetts)
+- **GitHub Releases（Android APK）**：前往本仓库 [Releases](https://github.com/sipeter/CloneTTS/releases) 页面下载最新版 `.apk`（仅支持 64 位 Android 7.0+）。
+- **配套开源 PC 服务端（Windows）**：
+  - **[IndexTTS-Server](https://github.com/sipeter/IndexTTS-Server)**（[Releases 下载页](https://github.com/sipeter/IndexTTS-Server/releases)）— 纯 C++ ONNX Runtime IndexTTS 1.5 服务端与桌面控制台（应用内一键下载模型、无需参考文本）。
+  - **[AudioCpp-Desktop](https://github.com/sipeter/AudioCpp-Desktop)**（[Releases 下载页](https://github.com/sipeter/AudioCpp-Desktop/releases)）— `audio.cpp` 原生 Windows 桌面控制台（支持 IndexTTS 2.5 / CosyVoice 3 / VoxCPM 2 / Qwen3-TTS / M5-TTS 与内置 ASR）。
+- **详细文档（`docs/`）**：
+  - [新手上手指南与 FAQ](docs/CloneTTS%20Beginner's%20Guide%20%26%20FAQ.md)
+  - [参考音频录制与选取指南](docs/CloneTTS%20Reference%20Audio%20Guide.md)
+  - [PC 端与第三方 OpenAI 服务端接入指南（中文）](docs/PC端与第三方OpenAI服务端接入指南.md)
+  - [PC & OpenAI-Compatible TTS Server Setup Guide (English)](docs/PC_and_OpenAI_Server_Setup_Guide_EN.md)
 
 ### 一、配置必读：电池优化与后台保活
 > **非常重要！必做！**  
@@ -177,7 +191,7 @@ CloneTTS 是一款运行在安卓系统本地的文字转语音 (TTS) 原生引�
 - **Telegram 交流群**：[CloneTTS](https://t.me/CloneTTS)
 
 ### 八、免责声明
-本软件所有语音合成渲染及生物特征提取均在本地脱机完成，无法触网且不留存您的私密发音特征。**未经版权所有人明确授权，严禁私自提取或滥用他人的声音进行克隆**。对于各种侵权欺诈或非法使用产生的任何纠纷，概由用户个人自行承担，本软件概不负责。
+本软件本地音色克隆与离线语音合成均在设备端脱机完成。当您主动配置远程 PC 或第三方 OpenAI 兼容服务端时，仅将待朗读文本发送至您自行填写的服务器地址。**未经版权所有人明确授权，严禁私自提取或滥用他人的声音进行克隆**。对于各种侵权欺诈或非法使用产生的任何纠纷，概由用户个人自行承担，本软件概不负责。
 
 ### 九、核心技术与第三方组件致谢 (Acknowledgements)
 本项目的实现离不开以下优秀的开源项目，在此致以诚挚的感谢：
